@@ -17,7 +17,9 @@ router.get("/", async function (req, res, next) {
 
 router.get("/:code", async function (req, res, next){
     try {
-
+        const { code } = req.params;
+        const results = await db.query(`SELECT * FROM companies WHERE code = $1`, [code])
+        return res.json({ company: results.rows })
     }
     catch(e) {
         return next(e)
@@ -43,7 +45,7 @@ router.put("/:code", async function (req, res, next){
 })
 
 router.delete(":/code", async function (req, res, next){
-    
+
 })
 
 module.exports = router;
